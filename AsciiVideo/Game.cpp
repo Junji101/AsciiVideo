@@ -1,7 +1,9 @@
+#include <iostream>
 #include <string>
+#include "CImg.h"
 #include "Game.h"
 using namespace std;
-FILE* file
+FILE* file;
 
 /**
  * Initialize certain variables
@@ -9,7 +11,8 @@ FILE* file
 void GameData::Initialize()
 {
 	endOfFiles = false;
-	currentFile = 0;
+	currentFile = 1;
+	pyFile = "ascii-telnet-server.py";
 
 }
 
@@ -64,17 +67,37 @@ int GameData::GetInput()
 
 void GameData::ProcessFiles(VideoProcessor *video, ImageProcessor *image)
 {
-	while(!endOfFiles)
+	while(endOfFiles == false)
 	{
 		image->setImage(inputFile(formatInt(currentFile),image->getImageFormat()));
 		video->updateDisplay(image->getImage());
 		image->processPicture(outputFile(formatInt(currentFile)));
 		
-		if ((file = fopen(inputFile(formatInt(currentFile++),image->getImageFormat()).c_str(),"r")) == NULL)
+		if ((file = fopen(inputFile(formatInt(currentFile+1),image->getImageFormat()).c_str(),"r")) == NULL)
 		{
 			endOfFiles = true;
+			break;
 		}
-		currentFile++;
+		currentFile += 1;
 	}
 	return;
+}
+
+void GameData::ProcessImages(VideoProcessor *video, ImageProcessor *image,cimg_library::CImgList<unsigned char> imageList)
+{
+
+	for (int i = 0; i < video->getVideoFrames(); i++)
+	{
+		image->setImage(imageList.at(0));
+		video->updateDisplay(image->getImage());
+		image->processPicture(outputFile(formatInt(currentFile)));
+
+	}
+}
+
+void GameData::DisplayFiles()
+{
+	string s = "py " + pyFile + " --standalone -f Output\\001.txt";
+	system(s.c_str());
+	system("Pause");
 }

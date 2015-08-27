@@ -14,7 +14,7 @@ using namespace std;
 #include "ImageProcessor.h"
 #include "VideoProcessor.h"
 
-#define VIDEO_RENDER true
+#define VIDEO_RENDER false
 
 ImageProcessor image;
 VideoProcessor video;
@@ -28,6 +28,7 @@ int main(int argv, char *args[])
 	VideoProcessor* passVideo = &video;
 	game.Initialize();
 	image.Initialize();
+	video.startDisplay();
 	//Ask User
 	switch(game.GetInput())
 	{
@@ -49,12 +50,20 @@ VideoProcess:
 	} else
 	{
 		video.loadVideo();
+		system("Pause");
 	}
 
 ImageProcess:
 	//Images from video get processed
-	game.ProcessFiles(passVideo,passImage);
+	if(VIDEO_RENDER)
+	{
+		game.ProcessFiles(passVideo,passImage);
+	} else
+	{
+		game.ProcessImages(passVideo, passImage,video.getVideo());
+	}
 
 VideoPlayback:
 	//Video from Ascii Art gets played
+	game.DisplayFiles();
 }

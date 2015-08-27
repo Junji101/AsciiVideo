@@ -1,4 +1,9 @@
+#include <iostream>
+#include <string>
+#include "CImg.h"
 #include "VideoProcessor.h"
+using namespace std;
+using namespace cimg_library;
 
 
 
@@ -10,24 +15,41 @@ string VideoProcessor::fileName()
 	cin.ignore();
 	getline(cin,s,'\n');
 	cout << "String recieved "<< s << endl;
+	return s;
 }
 
 void VideoProcessor::renderVideo()
 {
 
-	string str = "ffmpeg -i \"" + string(s) +"\" -r 1 -f image2 input/image-%3d.bmp";
+	string str = "ffmpeg -i \"" + string(fileName()) +"\" -r 1 -f image2 input/%3d.bmp";
 	cout << str;
 	int i = system (str.c_str());
 }
 
 void VideoProcessor::loadVideo()
 {
-	cout << "I regret to tell you this doesn't work...lol..  Nah but really I'm sorry" << endl;
+	cout << "This may have not loaded" << endl;
 	Video.load_video(fileName().c_str());
+	cout << "Video Size: " << Video.size() << endl;
+}
+
+cimg_library::CImgList<unsigned char> VideoProcessor::getVideo()
+{
+	return Video;
+}
+
+int VideoProcessor::getVideoFrames()
+{
+	return Video.width();
+}
+
+void VideoProcessor::startDisplay()
+{
+	Display.show();
 }
 
 void VideoProcessor::updateDisplay(CImg<unsigned char> Image)
 {
-	Display.assign(Image);
+	Display.display(Image);
 
 }

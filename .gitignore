@@ -6,6 +6,9 @@
 *.user
 *.userosscache
 *.sln.docstates
+[Ii]nput/
+[Oo]utput/
+[Vv]ideo/
 
 # Build results
 [Dd]ebug/

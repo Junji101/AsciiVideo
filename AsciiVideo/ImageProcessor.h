@@ -11,16 +11,17 @@ class ImageProcessor
 
 	void charData(int* cBox);
 	char compare(int Brightness);
-	string imageFormat;
-	CImg<unsigned char> currentImage;
+	std::string imageFormat;
+	std::string asciiFolder;
+	cimg_library::CImg<unsigned char> currentImage;
 public:
 	void Initialize();
-	void processPicture(string outputFile);
+	void processPicture(std::string outputFile);
 
-	void setImage(string inputFile);
-	CImg<unsigned char> getImage();
-	string getImageFormat();
-	//void processFiles();	/* Possibly for later use */
+	void setImage(std::string inputFile);
+	void setImage(cimg_library::CImg<unsigned char> inputImage);
+	cimg_library::CImg<unsigned char> getImage();
+	std::string getImageFormat();
 
 };
 

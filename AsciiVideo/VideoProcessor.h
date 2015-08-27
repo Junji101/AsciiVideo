@@ -4,13 +4,17 @@
 
 class VideoProcessor
 {
-	CImgDisplay Display;
-	CImgList<unsigned char> Video;
-	string fileName();
+	cimg_library::CImgDisplay Display;
+	cimg_library::CImgList<unsigned char> Video;
+	std::string fileName();
 public:
-	void updateDisplay(CImg<unsigned char> Image);
+	void startDisplay();
+	void updateDisplay(cimg_library::CImg<unsigned char> Image);
+	void shutdownDisplay();
 	void renderVideo();
 	void loadVideo();
+	cimg_library::CImgList<unsigned char> getVideo();
+	int getVideoFrames();
 
 };
 

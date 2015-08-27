@@ -1,4 +1,10 @@
+#include <string>
+#include <iostream>
+#include <fstream>
+#include "CImg.h"
 #include "ImageProcessor.h"
+using namespace std;
+using namespace cimg_library;
 
 #define HEIGHT  700
 #define WIDTH  700
@@ -22,7 +28,8 @@ int cData[HEIGHT][WIDTH];
  */
 void ImageProcessor::charData(int *cBox){
 	for (int k = 0; k < fileNum; k++){
-		CImg<unsigned char> image(fileNames[k]);
+		string cFile = asciiFolder + fileNames[k];
+		CImg<unsigned char> image(cFile.c_str());
 		int charBox[7][10];
 		int testBox = 0;
 		int filepix = 0;
@@ -67,6 +74,7 @@ char ImageProcessor::compare(int Brightness){
 
 void ImageProcessor::Initialize()
 {
+	asciiFolder = "Ascii/";
 	///// Load character Data ///////
 	int* filePnt = &fileData[0];
 	charData(filePnt);
@@ -84,7 +92,12 @@ string ImageProcessor::getImageFormat()
 
 void ImageProcessor::setImage(string inputFile)
 {
-	currentImage(inputFile);
+	currentImage.load(inputFile.c_str());
+}
+
+void ImageProcessor::setImage(CImg<unsigned char> inputImage)
+{
+	currentImage = inputImage;
 }
 
 CImg<unsigned char> ImageProcessor::getImage()
