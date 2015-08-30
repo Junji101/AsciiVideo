@@ -14,7 +14,7 @@ using namespace std;
 #include "ImageProcessor.h"
 #include "VideoProcessor.h"
 
-#define VIDEO_RENDER false
+#define VIDEO_RENDER true
 
 ImageProcessor image;
 VideoProcessor video;
@@ -49,7 +49,7 @@ VideoProcess:
 		video.renderVideo();
 	} else
 	{
-		video.loadVideo();
+		cout << "Going straight to process" << endl;
 		system("Pause");
 	}
 
@@ -60,7 +60,7 @@ ImageProcess:
 		game.ProcessFiles(passVideo,passImage);
 	} else
 	{
-		game.ProcessImages(passVideo, passImage,video.getVideo());
+		game.ProcessImages(passVideo, passImage);
 	}
 
 VideoPlayback:

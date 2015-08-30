@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+//#include <opencv2\core.hpp>
+//#include <opencv2\video.hpp>
 #include "CImg.h"
 #include "VideoProcessor.h"
 using namespace std;
@@ -26,10 +28,10 @@ void VideoProcessor::renderVideo()
 	int i = system (str.c_str());
 }
 
-void VideoProcessor::loadVideo()
+void VideoProcessor::loadVideo(int start, int end)
 {
 	cout << "This may have not loaded" << endl;
-	Video.load_video(fileName().c_str());
+	Video.load_video(fileName().c_str(),start, end, 1);
 	cout << "Video Size: " << Video.size() << endl;
 }
 

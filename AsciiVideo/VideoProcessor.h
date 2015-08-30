@@ -12,7 +12,7 @@ public:
 	void updateDisplay(cimg_library::CImg<unsigned char> Image);
 	void shutdownDisplay();
 	void renderVideo();
-	void loadVideo();
+	void loadVideo(int start, int end);
 	cimg_library::CImgList<unsigned char> getVideo();
 	int getVideoFrames();
 

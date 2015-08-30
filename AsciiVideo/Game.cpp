@@ -12,6 +12,7 @@ void GameData::Initialize()
 {
 	endOfFiles = false;
 	currentFile = 1;
+	videoSize = 5;
 	pyFile = "ascii-telnet-server.py";
 
 }
@@ -83,15 +84,26 @@ void GameData::ProcessFiles(VideoProcessor *video, ImageProcessor *image)
 	return;
 }
 
-void GameData::ProcessImages(VideoProcessor *video, ImageProcessor *image,cimg_library::CImgList<unsigned char> imageList)
+void GameData::ProcessImages(VideoProcessor *video, ImageProcessor *image)
 {
 
-	for (int i = 0; i < video->getVideoFrames(); i++)
+	while (!endOfFiles)
 	{
-		image->setImage(imageList.at(0));
-		video->updateDisplay(image->getImage());
-		image->processPicture(outputFile(formatInt(currentFile)));
+		video->loadVideo(currentFile, endFile);
+		cimg_library::CImgList<unsigned char> imageList = video->getVideo();
+		for (int i = 0; i < videoSize; i++)
+		{
+			if(imageList.at(i) == NULL)
+			{
+				endOfFiles = true;
+				break;
+			}
+			image->setImage(imageList.at(i));
+			video->updateDisplay(image->getImage());
+			image->processPicture(outputFile(formatInt(currentFile)));
 
+		}
+		currentFile += videoSize;
 	}
 }
 

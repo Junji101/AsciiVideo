@@ -272,7 +272,7 @@ class VT100Player:
                 It exposes the all frame numbers in real values. Therefore not encoded. 
         """
         # __TIMEBAR = " <" + "".join("." for i in range(MAXDIM[0]-4)) + ">"
-        __TIMEBAR = " <" + "".ljust(MAXDIM[0]-4) + ">"
+        __TIMEBAR = " <" + "".ljust(MAXDIM[0]-2) + ">"
         
         def __init__(self, movie):
                 self.__movie = movie
@@ -332,12 +332,14 @@ class VT100Player:
                         @param intCurrentValue: current value
                         @param intMaxSize: maximum value  
                 """
+                """
                 screenBuffer.write(VT100Codes().JMPXY(1, MAXDIM[1])) # self.__sendJMPXY(1,MAXDIM[1])
                 screenBuffer.write(self.__TIMEBAR)    # self.wfile.write(self.__TIMEBAR)
                 # now some weird calculations incl. some tricks to avoid rounding errors. 
                 x = min( (((intCurrentValue) * (MAXDIM[0] - 4)) / (intMaxSize - 1)) , (MAXDIM[0] - 4 - 1) )
                 screenBuffer.write(VT100Codes().JMPXY(x+3, MAXDIM[1])) # self.__sendJMPXY(x+3,MAXDIM[1])
                 screenBuffer.write("o")
+                """
 
 ###############################################################################
 def runTcpServer(interface, port, filename):

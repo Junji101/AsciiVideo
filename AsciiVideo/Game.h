@@ -13,12 +13,13 @@ class GameData
 	std::string pyFile;
 	bool endOfFiles;
 	int currentFile;
-
+	int endFile;
+	int videoSize;
 public:
 	int GetInput();
 	void Initialize();
 	void ProcessFiles(VideoProcessor *video, ImageProcessor *image);
-	void ProcessImages(VideoProcessor *video, ImageProcessor *image,cimg_library::CImgList<unsigned char> imageList);
+	void ProcessImages(VideoProcessor *video, ImageProcessor *image);
 	void DisplayFiles();
 
 };
